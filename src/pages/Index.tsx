@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useImageProcessor } from '@/hooks/useImageProcessor';
 import { ImageUploader } from '@/components/ImageUploader';
 import { ImagePreview } from '@/components/ImagePreview';
@@ -13,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   History,
+  ArrowLeft,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +22,7 @@ type RightPanel = 'history' | null;
 
 export default function Index() {
   const processor = useImageProcessor();
+  const navigate = useNavigate();
   const [rightPanel, setRightPanel] = useState<RightPanel>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
@@ -37,14 +40,23 @@ export default function Index() {
     <div className="flex h-screen flex-col overflow-hidden bg-background">
       {/* Top navigation bar */}
       <header className="flex h-14 flex-shrink-0 items-center justify-between border-b border-surface-border bg-surface px-4 z-10">
-        {/* Logo */}
+        {/* Logo + back */}
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
-            <Eye className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <div>
-            <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
-            <span className="ml-1.5 text-xs text-muted-foreground hidden sm:inline">Image Processing Studio</span>
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-1.5 rounded-lg border border-surface-border bg-surface-elevated px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Home</span>
+          </button>
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
+              <Eye className="h-4 w-4 text-primary-foreground" />
+            </div>
+            <div>
+              <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
+              <span className="ml-1.5 text-xs text-muted-foreground hidden sm:inline">Filters Studio</span>
+            </div>
           </div>
         </div>
 
