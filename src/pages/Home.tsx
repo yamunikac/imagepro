@@ -1,0 +1,163 @@
+import { useNavigate } from 'react-router-dom';
+import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download } from 'lucide-react';
+
+const features = [
+  {
+    icon: Layers,
+    emoji: '🎨',
+    title: 'Image Filters',
+    description: 'Apply professional filters: grayscale, blur, edge detection, cartoon, brightness/contrast, sharpen, emboss and more.',
+    path: '/studio',
+    gradient: 'from-violet-500/20 via-purple-500/10 to-transparent',
+    border: 'hover:border-violet-500/50',
+    accent: 'text-violet-400',
+    badge: '13 filters',
+  },
+  {
+    icon: Minimize2,
+    emoji: '⚡',
+    title: 'Compress & Resize',
+    description: 'Reduce file size in KB/MB while preserving quality. Control output size precisely with quality sliders.',
+    path: '/compress',
+    gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
+    border: 'hover:border-amber-500/50',
+    accent: 'text-amber-400',
+    badge: 'Lossy & lossless',
+  },
+  {
+    icon: FileSymlink,
+    emoji: '🔄',
+    title: 'Convert Format',
+    description: 'Convert between PNG, JPEG, WebP, BMP, PDF (to image). Change extension instantly in the browser.',
+    path: '/convert',
+    gradient: 'from-cyan-500/20 via-blue-500/10 to-transparent',
+    border: 'hover:border-cyan-500/50',
+    accent: 'text-cyan-400',
+    badge: 'PDF · JPEG · WebP',
+  },
+  {
+    icon: Crop,
+    emoji: '✂️',
+    title: 'Crop & Adjust',
+    description: 'Crop to exact dimensions, free-form select any region, or use preset aspect ratios like 16:9, 1:1, 4:3.',
+    path: '/crop',
+    gradient: 'from-emerald-500/20 via-green-500/10 to-transparent',
+    border: 'hover:border-emerald-500/50',
+    accent: 'text-emerald-400',
+    badge: 'Aspect ratios',
+  },
+];
+
+const stats = [
+  { icon: Zap, label: 'Client-side only', sub: 'No uploads to server' },
+  { icon: Shield, label: '100% Private', sub: 'Your images stay local' },
+  { icon: Download, label: 'Instant download', sub: 'One-click save' },
+];
+
+export default function Home() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <header className="flex h-14 items-center border-b border-surface-border bg-surface px-6 flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
+            <Eye className="h-4 w-4 text-primary-foreground" />
+          </div>
+          <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
+          <span className="ml-1 text-xs text-muted-foreground hidden sm:inline">Image Processing Studio</span>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="relative flex flex-col items-center justify-center py-20 px-6 text-center overflow-hidden">
+        {/* Background glow */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+        </div>
+
+        <div className="relative space-y-6 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
+            <Zap className="h-3 w-3" />
+            All processing in your browser — zero uploads
+          </div>
+
+          <h1 className="font-display text-5xl font-bold leading-tight tracking-tight">
+            <span className="text-foreground">Professional</span>
+            <br />
+            <span className="text-gradient-brand">Image Processing</span>
+          </h1>
+
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-lg mx-auto">
+            Filter, compress, convert, and crop images — all client-side with zero server uploads. 
+            Fast, private, and powerful.
+          </p>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap justify-center gap-6 pt-2">
+            {stats.map((s) => (
+              <div key={s.label} className="flex items-center gap-2 text-left">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface-elevated">
+                  <s.icon className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-foreground">{s.label}</div>
+                  <div className="text-[10px] text-muted-foreground">{s.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Feature cards */}
+      <section className="flex-1 px-6 pb-16">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {features.map((f) => (
+            <button
+              key={f.path}
+              onClick={() => navigate(f.path)}
+              className={`group relative text-left rounded-2xl border border-surface-border bg-surface p-6 transition-all duration-300 hover:shadow-studio-md ${f.border} hover:-translate-y-0.5 overflow-hidden`}
+            >
+              {/* Background gradient */}
+              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+
+              <div className="relative space-y-4">
+                {/* Icon row */}
+                <div className="flex items-start justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-border bg-surface-elevated text-2xl shadow-sm group-hover:scale-110 transition-transform duration-200">
+                    {f.emoji}
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-full border border-surface-border bg-surface-elevated px-2.5 py-1 text-[10px] font-medium text-muted-foreground">
+                    {f.badge}
+                  </div>
+                </div>
+
+                {/* Text */}
+                <div>
+                  <h2 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                    {f.title}
+                  </h2>
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                    {f.description}
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <div className={`flex items-center gap-1.5 text-sm font-medium ${f.accent} opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0`}>
+                  Open tool <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-surface-border bg-surface px-6 py-4 text-center text-xs text-muted-foreground/60">
+        VisionPro Studio · All processing done client-side via Canvas API
+      </footer>
+    </div>
+  );
+}
