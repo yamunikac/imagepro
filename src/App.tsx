@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import CompressPage from "./pages/CompressPage";
 import ConvertPage from "./pages/ConvertPage";
 import CropPage from "./pages/CropPage";
+import EnhancePage from "./pages/EnhancePage";
+import RotatePage from "./pages/RotatePage";
+import BackgroundRemovalPage from "./pages/BackgroundRemovalPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/compress" element={<CompressPage />} />
           <Route path="/convert" element={<ConvertPage />} />
           <Route path="/crop" element={<CropPage />} />
+          <Route path="/enhance" element={<EnhancePage />} />
+          <Route path="/rotate" element={<RotatePage />} />
+          <Route path="/remove-bg" element={<BackgroundRemovalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

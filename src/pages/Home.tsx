@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download } from 'lucide-react';
+import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download, Sparkles, RotateCw, Eraser } from 'lucide-react';
 
 const features = [
   {
@@ -12,6 +12,17 @@ const features = [
     border: 'hover:border-violet-500/50',
     accent: 'text-violet-400',
     badge: '13 filters',
+  },
+  {
+    icon: Sparkles,
+    emoji: '✨',
+    title: 'Enhance & Clarity',
+    description: 'Sharpen details, reduce noise, auto contrast, and fix dark/low-light photos. Natural colors preserved.',
+    path: '/enhance',
+    gradient: 'from-sky-500/20 via-blue-500/10 to-transparent',
+    border: 'hover:border-sky-500/50',
+    accent: 'text-sky-400',
+    badge: '4 enhancements',
   },
   {
     icon: Minimize2,
@@ -28,12 +39,12 @@ const features = [
     icon: FileSymlink,
     emoji: '🔄',
     title: 'Convert Format',
-    description: 'Convert between PNG, JPEG, WebP, BMP, PDF (to image). Change extension instantly in the browser.',
+    description: 'Convert between PNG, JPEG, WebP, BMP. Batch convert multiple files at once, instantly in the browser.',
     path: '/convert',
     gradient: 'from-cyan-500/20 via-blue-500/10 to-transparent',
     border: 'hover:border-cyan-500/50',
     accent: 'text-cyan-400',
-    badge: 'PDF · JPEG · WebP',
+    badge: 'JPEG · PNG · WebP',
   },
   {
     icon: Crop,
@@ -45,6 +56,28 @@ const features = [
     border: 'hover:border-emerald-500/50',
     accent: 'text-emerald-400',
     badge: 'Aspect ratios',
+  },
+  {
+    icon: RotateCw,
+    emoji: '🔃',
+    title: 'Rotate & Straighten',
+    description: 'Rotate by any angle, flip horizontally or vertically, and use quick presets for 90°, 180°, 270°.',
+    path: '/rotate',
+    gradient: 'from-indigo-500/20 via-purple-500/10 to-transparent',
+    border: 'hover:border-indigo-500/50',
+    accent: 'text-indigo-400',
+    badge: 'Any angle',
+  },
+  {
+    icon: Eraser,
+    emoji: '🪄',
+    title: 'Remove Background',
+    description: 'Automatically detect and remove image backgrounds. Outputs transparent PNG. Works on studio photos.',
+    path: '/remove-bg',
+    gradient: 'from-rose-500/20 via-pink-500/10 to-transparent',
+    border: 'hover:border-rose-500/50',
+    accent: 'text-rose-400',
+    badge: 'Transparent PNG',
   },
 ];
 
@@ -113,7 +146,7 @@ export default function Home() {
 
       {/* Feature cards */}
       <section className="flex-1 px-6 pb-16">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f) => (
             <button
               key={f.path}
