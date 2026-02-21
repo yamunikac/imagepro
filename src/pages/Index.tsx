@@ -37,7 +37,7 @@ export default function Index() {
   const canRedo = processor.historyIndex < processor.history.length - 1;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background">
+    <div className="flex h-[calc(100vh-3.5rem)] flex-col overflow-hidden bg-background">
       {/* Top navigation bar */}
       <header className="flex h-14 flex-shrink-0 items-center justify-between border-b border-surface-border bg-surface px-4 z-10">
         {/* Logo + back */}
