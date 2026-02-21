@@ -91,17 +91,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="flex h-14 items-center border-b border-surface-border bg-surface px-6 flex-shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
-            <Eye className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
-          <span className="ml-1 text-xs text-muted-foreground hidden sm:inline">Image Processing Studio</span>
-        </div>
-      </header>
+    <div className="min-h-[calc(100vh-3.5rem)] bg-background flex flex-col">
 
       {/* Hero */}
       <section className="relative flex flex-col items-center justify-center py-20 px-6 text-center overflow-hidden">

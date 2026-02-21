@@ -9,8 +9,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @layer base {
-  :root {
-    /* Studio Dark Theme */
+  :root,
+  .light {
+    --background: 210 20% 98%;
+    --foreground: 222 30% 12%;
+
+    --surface: 210 15% 96%;
+    --surface-elevated: 0 0% 100%;
+    --surface-border: 214 20% 88%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 30% 12%;
+
+    --primary: 190 100% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 190 100% 45%;
+    --primary-dim: 190 80% 30%;
+
+    --secondary: 214 20% 92%;
+    --secondary-foreground: 222 20% 35%;
+
+    --muted: 214 15% 93%;
+    --muted-foreground: 215 12% 45%;
+
+    --accent: 200 90% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 145 65% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 30% 6%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 88%;
+    --input: 214 15% 91%;
+    --ring: 190 100% 38%;
+
+    --radius: 0.6rem;
+
+    --sidebar-background: 210 15% 97%;
+    --sidebar-foreground: 222 20% 35%;
+    --sidebar-primary: 190 100% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 15% 93%;
+    --sidebar-accent-foreground: 222 30% 12%;
+    --sidebar-border: 214 20% 88%;
+    --sidebar-ring: 190 100% 38%;
+
+    --gradient-brand: linear-gradient(135deg, hsl(190 100% 38%), hsl(200 90% 40%));
+    --gradient-surface: linear-gradient(180deg, hsl(210 15% 96%), hsl(210 20% 98%));
+    --gradient-glow: radial-gradient(ellipse at center, hsl(190 100% 38% / 0.1), transparent 70%);
+
+    --shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.08);
+    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 8px 30px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 20px hsl(190 100% 38% / 0.15);
+    --shadow-glow-sm: 0 0 10px hsl(190 100% 38% / 0.1);
+  }
+
+  .dark {
     --background: 222 30% 6%;
     --foreground: 210 20% 92%;
 
@@ -24,7 +87,6 @@
     --popover: 220 25% 10%;
     --popover-foreground: 210 20% 92%;
 
-    /* Electric Cyan as primary accent */
     --primary: 190 100% 50%;
     --primary-foreground: 222 30% 6%;
     --primary-glow: 190 100% 60%;
@@ -54,7 +116,6 @@
 
     --radius: 0.6rem;
 
-    /* Sidebar */
     --sidebar-background: 220 28% 7%;
     --sidebar-foreground: 210 15% 75%;
     --sidebar-primary: 190 100% 50%;
@@ -64,12 +125,10 @@
     --sidebar-border: 218 20% 16%;
     --sidebar-ring: 190 100% 50%;
 
-    /* Gradients */
     --gradient-brand: linear-gradient(135deg, hsl(190 100% 50%), hsl(200 90% 45%));
     --gradient-surface: linear-gradient(180deg, hsl(220 25% 9%), hsl(222 30% 7%));
     --gradient-glow: radial-gradient(ellipse at center, hsl(190 100% 50% / 0.15), transparent 70%);
 
-    /* Shadows */
     --shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.4);
     --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.5);
     --shadow-lg: 0 8px 30px hsl(0 0% 0% / 0.6);
