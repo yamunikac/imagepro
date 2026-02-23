@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download, Sparkles, RotateCw, Eraser } from 'lucide-react';
+import { Layers, Minimize2, FileSymlink, Crop, ArrowRight, Sparkles, RotateCw, Eraser } from 'lucide-react';
 
 const features = [
   {
@@ -8,9 +8,6 @@ const features = [
     title: 'Image Filters',
     description: 'Apply professional filters: grayscale, blur, edge detection, cartoon, brightness/contrast, sharpen, emboss and more.',
     path: '/studio',
-    gradient: 'from-violet-500/20 via-purple-500/10 to-transparent',
-    border: 'hover:border-violet-500/50',
-    accent: 'text-violet-400',
     badge: '13 filters',
   },
   {
@@ -19,9 +16,6 @@ const features = [
     title: 'Enhance & Clarity',
     description: 'Sharpen details, reduce noise, auto contrast, and fix dark/low-light photos. Natural colors preserved.',
     path: '/enhance',
-    gradient: 'from-sky-500/20 via-blue-500/10 to-transparent',
-    border: 'hover:border-sky-500/50',
-    accent: 'text-sky-400',
     badge: '4 enhancements',
   },
   {
@@ -30,9 +24,6 @@ const features = [
     title: 'Compress & Resize',
     description: 'Reduce file size in KB/MB while preserving quality. Control output size precisely with quality sliders.',
     path: '/compress',
-    gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
-    border: 'hover:border-amber-500/50',
-    accent: 'text-amber-400',
     badge: 'Lossy & lossless',
   },
   {
@@ -41,21 +32,15 @@ const features = [
     title: 'Convert Format',
     description: 'Convert between PNG, JPEG, WebP, BMP. Batch convert multiple files at once, instantly in the browser.',
     path: '/convert',
-    gradient: 'from-cyan-500/20 via-blue-500/10 to-transparent',
-    border: 'hover:border-cyan-500/50',
-    accent: 'text-cyan-400',
     badge: 'JPEG · PNG · WebP',
   },
   {
     icon: Crop,
     emoji: '✂️',
     title: 'Crop & Adjust',
-    description: 'Crop to exact dimensions, free-form select any region, or use preset aspect ratios like 16:9, 1:1, 4:3.',
+    description: 'Crop to exact dimensions, drag edge handles to resize, or use preset aspect ratios like 16:9, 1:1, 4:3.',
     path: '/crop',
-    gradient: 'from-emerald-500/20 via-green-500/10 to-transparent',
-    border: 'hover:border-emerald-500/50',
-    accent: 'text-emerald-400',
-    badge: 'Aspect ratios',
+    badge: 'Drag edges',
   },
   {
     icon: RotateCw,
@@ -63,28 +48,16 @@ const features = [
     title: 'Rotate & Straighten',
     description: 'Rotate by any angle, flip horizontally or vertically, and use quick presets for 90°, 180°, 270°.',
     path: '/rotate',
-    gradient: 'from-indigo-500/20 via-purple-500/10 to-transparent',
-    border: 'hover:border-indigo-500/50',
-    accent: 'text-indigo-400',
     badge: 'Any angle',
   },
   {
     icon: Eraser,
     emoji: '🪄',
     title: 'Remove Background',
-    description: 'Automatically detect and remove image backgrounds. Outputs transparent PNG. Works on studio photos.',
+    description: 'Select and remove image backgrounds with pointer. Paint areas to remove. Outputs transparent PNG.',
     path: '/remove-bg',
-    gradient: 'from-rose-500/20 via-pink-500/10 to-transparent',
-    border: 'hover:border-rose-500/50',
-    accent: 'text-rose-400',
-    badge: 'Transparent PNG',
+    badge: 'Pointer select',
   },
-];
-
-const stats = [
-  { icon: Zap, label: 'Client-side only', sub: 'No uploads to server' },
-  { icon: Shield, label: '100% Private', sub: 'Your images stay local' },
-  { icon: Download, label: 'Instant download', sub: 'One-click save' },
 ];
 
 export default function Home() {
@@ -92,62 +65,18 @@ export default function Home() {
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-background flex flex-col">
-
-      {/* Hero */}
-      <section className="relative flex flex-col items-center justify-center py-20 px-6 text-center overflow-hidden">
-        {/* Background glow */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        </div>
-
-        <div className="relative space-y-6 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
-            <Zap className="h-3 w-3" />
-            All processing in your browser — zero uploads
-          </div>
-
-          <h1 className="font-display text-5xl font-bold leading-tight tracking-tight">
-            <span className="text-foreground">Professional</span>
-            <br />
-            <span className="text-gradient-brand">Image Processing</span>
-          </h1>
-
-          <p className="text-muted-foreground text-lg leading-relaxed max-w-lg mx-auto">
-            Filter, compress, convert, and crop images — all client-side with zero server uploads. 
-            Fast, private, and powerful.
-          </p>
-
-          {/* Stats row */}
-          <div className="flex flex-wrap justify-center gap-6 pt-2">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-center gap-2 text-left">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface-elevated">
-                  <s.icon className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-foreground">{s.label}</div>
-                  <div className="text-[10px] text-muted-foreground">{s.sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Feature cards */}
-      <section className="flex-1 px-6 pb-16">
+      {/* Feature cards only */}
+      <section className="flex-1 px-6 py-10">
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f) => (
             <button
               key={f.path}
               onClick={() => navigate(f.path)}
-              className={`group relative text-left rounded-2xl border border-surface-border bg-surface p-6 transition-all duration-300 hover:shadow-studio-md ${f.border} hover:-translate-y-0.5 overflow-hidden`}
+              className="group relative text-left rounded-2xl border border-surface-border bg-surface p-6 transition-all duration-300 hover:shadow-studio-md hover:border-primary/50 hover:-translate-y-0.5 overflow-hidden"
             >
-              {/* Background gradient */}
-              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative space-y-4">
-                {/* Icon row */}
                 <div className="flex items-start justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-border bg-surface-elevated text-2xl shadow-sm group-hover:scale-110 transition-transform duration-200">
                     {f.emoji}
@@ -157,7 +86,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Text */}
                 <div>
                   <h2 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                     {f.title}
@@ -167,8 +95,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* CTA */}
-                <div className={`flex items-center gap-1.5 text-sm font-medium ${f.accent} opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0`}>
+                <div className="flex items-center gap-1.5 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0">
                   Open tool <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
@@ -177,7 +104,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-surface-border bg-surface px-6 py-4 text-center text-xs text-muted-foreground/60">
         VisionPro Studio · All processing done client-side via Canvas API
       </footer>

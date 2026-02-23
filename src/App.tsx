@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
+import AIChatWidget from "@/components/AIChatWidget";
 import AuthPage from "./pages/AuthPage";
 import FeaturesPage from "./pages/Home";
 import Index from "./pages/Index";
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/history" element={<HistoryPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <AIChatWidget />
           </BrowserRouter>
         </TooltipProvider>
       </AuthProvider>

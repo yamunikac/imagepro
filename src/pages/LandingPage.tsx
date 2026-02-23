@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { Eye, ArrowRight, Zap, Shield, Download, Sparkles, User, Image } from 'lucide-react';
+import { Eye, ArrowRight, Sparkles, User, Image, Shield, Download } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { toggleTheme, theme } = useTheme();
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-background flex flex-col">
@@ -15,11 +17,6 @@ export default function LandingPage() {
         </div>
 
         <div className="relative space-y-8 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
-            <Zap className="h-3 w-3" />
-            All processing in your browser — zero uploads
-          </div>
-
           <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight tracking-tight">
             <span className="text-foreground">Smart Image</span>
             <br />
@@ -30,10 +27,21 @@ export default function LandingPage() {
             Professional image processing — filters, compression, format conversion, cropping, rotation, and AI background removal. Fast, private, and powerful.
           </p>
 
+          {/* Moon/Sun theme toggle in center */}
+          <div className="flex justify-center">
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary hover:bg-primary/20 transition-all"
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              <span className="text-xl">{theme === 'dark' ? '🌙' : '☀️'}</span>
+              {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+            </button>
+          </div>
+
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { icon: Zap, label: 'Client-side only', sub: 'No server uploads' },
               { icon: Shield, label: '100% Private', sub: 'Images stay local' },
               { icon: Download, label: 'Instant download', sub: 'One-click save' },
             ].map((s) => (
