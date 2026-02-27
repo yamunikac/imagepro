@@ -1,35 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
-import { History, ImageIcon, Calendar, Tag } from 'lucide-react';
+import { History, Calendar, Target, Brain, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-interface HistoryRecord {
+interface SessionRecord {
   id: string;
-  operations_applied: string[];
+  total_questions: number;
+  correct_count: number;
+  accuracy: number;
+  avg_response_time: number;
+  final_difficulty: string;
+  mastery_level: string | null;
+  completed_at: string | null;
   created_at: string;
-  original_image_url: string | null;
-  processed_image_url: string | null;
 }
 
 export default function HistoryPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [records, setRecords] = useState<HistoryRecord[]>([]);
+  const [records, setRecords] = useState<SessionRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
+    if (!user) { navigate('/auth'); return; }
     (async () => {
       const { data } = await supabase
-        .from('image_history')
+        .from('test_sessions')
         .select('*')
         .eq('user_id', user.id)
+        .eq('status', 'completed')
         .order('created_at', { ascending: false });
-      setRecords((data as HistoryRecord[]) || []);
+      setRecords((data as SessionRecord[]) || []);
       setLoading(false);
     })();
   }, [user, navigate]);
@@ -37,14 +39,14 @@ export default function HistoryPage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-background">
       <div className="max-w-4xl mx-auto px-6 py-10 space-y-6">
         <div className="space-y-1">
           <h1 className="font-display text-3xl font-bold text-foreground flex items-center gap-2">
             <History className="h-7 w-7 text-primary" />
-            Activity History
+            Test History
           </h1>
-          <p className="text-muted-foreground text-sm">All your processed images and operations.</p>
+          <p className="text-muted-foreground text-sm">All your completed assessments.</p>
         </div>
 
         {loading ? (
@@ -53,40 +55,46 @@ export default function HistoryPage() {
           </div>
         ) : records.length === 0 ? (
           <div className="text-center py-20 space-y-3">
-            <ImageIcon className="h-12 w-12 text-muted-foreground/30 mx-auto" />
-            <p className="text-muted-foreground">No processing history yet.</p>
+            <Brain className="h-12 w-12 text-muted-foreground/30 mx-auto" />
+            <p className="text-muted-foreground">No test history yet.</p>
             <button
-              onClick={() => navigate('/features')}
+              onClick={() => navigate('/test')}
               className="rounded-lg gradient-brand px-4 py-2 text-sm font-semibold text-primary-foreground shadow-glow-sm"
             >
-              Start Processing
+              Start Your First Test
             </button>
           </div>
         ) : (
           <div className="space-y-3">
             {records.map((r) => (
-              <div
+              <button
                 key={r.id}
-                className="rounded-xl border border-surface-border bg-surface p-4 flex items-center gap-4 hover:border-primary/30 transition-colors"
+                onClick={() => navigate(`/results/${r.id}`)}
+                className="w-full rounded-xl border border-surface-border bg-surface p-4 flex items-center gap-4 hover:border-primary/30 transition-colors text-left"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <ImageIcon className="h-5 w-5" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary font-display font-bold">
+                  {Number(r.accuracy)}%
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap gap-1.5 mb-1">
-                    {r.operations_applied.map((op, i) => (
-                      <span key={i} className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-medium text-primary">
-                        <Tag className="h-2.5 w-2.5" />
-                        {op}
-                      </span>
-                    ))}
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-sm font-medium text-foreground">
+                      {r.total_questions} questions
+                    </span>
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium border ${
+                      r.mastery_level === 'Advanced' ? 'border-success/30 text-success bg-success/10' :
+                      r.mastery_level === 'Intermediate' ? 'border-warning/30 text-warning bg-warning/10' :
+                      'border-destructive/30 text-destructive bg-destructive/10'
+                    }`}>
+                      {r.mastery_level || 'N/A'}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Calendar className="h-3 w-3" />
-                    {new Date(r.created_at).toLocaleString()}
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(r.created_at).toLocaleDateString()}</span>
+                    <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {Math.round(Number(r.avg_response_time))}ms avg</span>
+                    <span className="flex items-center gap-1"><Target className="h-3 w-3" /> {r.final_difficulty}</span>
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         )}
