@@ -8,16 +8,12 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
 import AIChatWidget from "@/components/AIChatWidget";
 import AuthPage from "./pages/AuthPage";
-import FeaturesPage from "./pages/Home";
-import Index from "./pages/Index";
-import CompressPage from "./pages/CompressPage";
-import ConvertPage from "./pages/ConvertPage";
-import CropPage from "./pages/CropPage";
-import EnhancePage from "./pages/EnhancePage";
-import RotatePage from "./pages/RotatePage";
-import BackgroundRemovalPage from "./pages/BackgroundRemovalPage";
-import HistoryPage from "./pages/HistoryPage";
 import LandingPage from "./pages/LandingPage";
+import DashboardPage from "./pages/DashboardPage";
+import TestPage from "./pages/TestPage";
+import ResultsPage from "./pages/ResultsPage";
+import HistoryPage from "./pages/HistoryPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,15 +30,11 @@ const App = () => (
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/auth" element={<AuthPage />} />
-              <Route path="/features" element={<FeaturesPage />} />
-              <Route path="/studio" element={<Index />} />
-              <Route path="/compress" element={<CompressPage />} />
-              <Route path="/convert" element={<ConvertPage />} />
-              <Route path="/crop" element={<CropPage />} />
-              <Route path="/enhance" element={<EnhancePage />} />
-              <Route path="/rotate" element={<RotatePage />} />
-              <Route path="/remove-bg" element={<BackgroundRemovalPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/test" element={<TestPage />} />
+              <Route path="/results/:id" element={<ResultsPage />} />
               <Route path="/history" element={<HistoryPage />} />
+              <Route path="/leaderboard" element={<LeaderboardPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <AIChatWidget />
