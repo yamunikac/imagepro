@@ -41,6 +41,39 @@ export type Database = {
         }
         Relationships: []
       }
+      leaderboard: {
+        Row: {
+          avg_response_time: number
+          created_at: string
+          id: string
+          mastery_level: string | null
+          score: number
+          total_questions: number
+          user_id: string
+          user_name: string
+        }
+        Insert: {
+          avg_response_time?: number
+          created_at?: string
+          id?: string
+          mastery_level?: string | null
+          score?: number
+          total_questions?: number
+          user_id: string
+          user_name?: string
+        }
+        Update: {
+          avg_response_time?: number
+          created_at?: string
+          id?: string
+          mastery_level?: string | null
+          score?: number
+          total_questions?: number
+          user_id?: string
+          user_name?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -65,6 +98,147 @@ export type Database = {
           images_processed?: number
           name?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          difficulty: string
+          id: string
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          topic: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          difficulty: string
+          id?: string
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          topic: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          difficulty?: string
+          id?: string
+          option_a?: string
+          option_b?: string
+          option_c?: string
+          option_d?: string
+          question_text?: string
+          topic?: string
+        }
+        Relationships: []
+      }
+      test_responses: {
+        Row: {
+          created_at: string
+          difficulty_at_time: string
+          id: string
+          is_correct: boolean
+          question_id: string
+          question_number: number
+          response_time_ms: number
+          selected_answer: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          difficulty_at_time: string
+          id?: string
+          is_correct: boolean
+          question_id: string
+          question_number: number
+          response_time_ms?: number
+          selected_answer: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          difficulty_at_time?: string
+          id?: string
+          is_correct?: boolean
+          question_id?: string
+          question_number?: number
+          response_time_ms?: number
+          selected_answer?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_responses_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "test_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_sessions: {
+        Row: {
+          accuracy: number
+          avg_response_time: number
+          completed_at: string | null
+          correct_count: number
+          created_at: string
+          final_difficulty: string
+          id: string
+          incorrect_count: number
+          mastery_level: string | null
+          started_at: string
+          status: string
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          accuracy?: number
+          avg_response_time?: number
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          final_difficulty?: string
+          id?: string
+          incorrect_count?: number
+          mastery_level?: string | null
+          started_at?: string
+          status?: string
+          total_questions?: number
+          user_id: string
+        }
+        Update: {
+          accuracy?: number
+          avg_response_time?: number
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          final_difficulty?: string
+          id?: string
+          incorrect_count?: number
+          mastery_level?: string | null
+          started_at?: string
+          status?: string
+          total_questions?: number
+          user_id?: string
         }
         Relationships: []
       }
