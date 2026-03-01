@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { Brain, ArrowRight, Sparkles, User, BarChart3, Target, Zap } from 'lucide-react';
+import { Eye, ArrowRight, Sparkles, User, Image, Shield, Download } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export default function LandingPage() {
@@ -10,6 +10,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-background flex flex-col">
+      {/* Hero */}
       <section className="relative flex flex-col items-center justify-center py-24 px-6 text-center overflow-hidden flex-1">
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
@@ -17,33 +18,32 @@ export default function LandingPage() {
 
         <div className="relative space-y-8 max-w-2xl mx-auto">
           <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight tracking-tight">
-            <span className="text-foreground">Adaptive</span>
+            <span className="text-foreground">Smart Image</span>
             <br />
-            <span className="text-gradient-brand">IQ Assessment</span>
+            <span className="text-gradient-brand">Optimizer & Editor</span>
           </h1>
 
           <p className="text-muted-foreground text-lg leading-relaxed max-w-lg mx-auto">
-            An intelligent assessment platform that adapts to your skill level in real-time. 
-            Powered by weighted scoring and confidence-based difficulty adjustment.
+            Professional image processing — filters, compression, format conversion, cropping, rotation, and AI background removal. Fast, private, and powerful.
           </p>
 
-          {/* Theme toggle */}
+          {/* Moon/Sun theme toggle in center */}
           <div className="flex justify-center">
             <button
               onClick={toggleTheme}
               className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary hover:bg-primary/20 transition-all"
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
               <span className="text-xl">{theme === 'dark' ? '🌙' : '☀️'}</span>
               {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
             </button>
           </div>
 
-          {/* Feature highlights */}
+          {/* Stats */}
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { icon: Target, label: 'Adaptive Engine', sub: 'Real-time difficulty' },
-              { icon: BarChart3, label: 'Deep Analytics', sub: 'Topic-wise insights' },
-              { icon: Zap, label: 'Instant Reports', sub: 'Competency profile' },
+              { icon: Shield, label: '100% Private', sub: 'Images stay local' },
+              { icon: Download, label: 'Instant download', sub: 'One-click save' },
             ].map((s) => (
               <div key={s.label} className="flex items-center gap-2 text-left">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface-elevated">
@@ -61,11 +61,11 @@ export default function LandingPage() {
           <div className="flex flex-wrap gap-3 justify-center pt-4">
             {user ? (
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/features')}
                 className="flex items-center gap-2 rounded-xl gradient-brand px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:opacity-90 transition-opacity"
               >
                 <Sparkles className="h-4 w-4" />
-                Go to Dashboard
+                Open Features
                 <ArrowRight className="h-4 w-4" />
               </button>
             ) : (
@@ -79,11 +79,11 @@ export default function LandingPage() {
                   <ArrowRight className="h-4 w-4" />
                 </button>
                 <button
-                  onClick={() => navigate('/auth')}
+                  onClick={() => navigate('/features')}
                   className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface px-6 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all"
                 >
-                  <Brain className="h-4 w-4" />
-                  Sign In
+                  <Image className="h-4 w-4" />
+                  Browse Features
                 </button>
               </>
             )}
@@ -92,7 +92,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="border-t border-surface-border bg-surface px-6 py-4 text-center text-xs text-muted-foreground/60">
-        AdaptiveIQ · Intelligent Adaptive Assessment Platform
+        VisionPro · Smart Image Optimizer & Editor · All processing done client-side
       </footer>
     </div>
   );

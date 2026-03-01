@@ -1,15 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Brain, Home, History, Trophy, LogOut, User, Mail, Hash, ChevronDown, BarChart3 } from 'lucide-react';
+import { Eye, Home, Layout, History, LogOut, User, Mail, Hash, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 
 const navItems = [
   { label: 'Home', path: '/', icon: Home },
-  { label: 'Dashboard', path: '/dashboard', icon: BarChart3 },
+  { label: 'Features', path: '/features', icon: Layout },
   { label: 'History', path: '/history', icon: History },
-  { label: 'Leaderboard', path: '/leaderboard', icon: Trophy },
 ];
 
 interface Profile {
@@ -51,13 +50,15 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-surface-border bg-surface/80 backdrop-blur-xl px-6">
+      {/* Logo */}
       <button onClick={() => navigate('/')} className="flex items-center gap-2.5">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
-          <Brain className="h-4 w-4 text-primary-foreground" />
+          <Eye className="h-4 w-4 text-primary-foreground" />
         </div>
-        <span className="font-display text-base font-bold text-gradient-brand">AdaptiveIQ</span>
+        <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
       </button>
 
+      {/* Nav links */}
       <nav className="hidden sm:flex items-center gap-1">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
@@ -79,6 +80,7 @@ export default function Navbar() {
         })}
       </nav>
 
+      {/* Right actions */}
       <div className="flex items-center gap-2">
         {user ? (
           <div className="relative" ref={dropdownRef}>
@@ -95,6 +97,7 @@ export default function Navbar() {
 
             {profileOpen && (
               <div className="absolute right-0 top-full mt-2 w-72 rounded-xl border border-surface-border bg-surface-elevated shadow-studio-lg p-4 space-y-4 animate-fade-in-up z-50">
+                {/* Profile header */}
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
                     {(profile?.name?.[0] || 'U').toUpperCase()}
@@ -107,6 +110,7 @@ export default function Navbar() {
 
                 <div className="border-t border-surface-border" />
 
+                {/* Profile details */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <User className="h-3.5 w-3.5" />
@@ -118,10 +122,16 @@ export default function Navbar() {
                     <span>Email:</span>
                     <span className="ml-auto font-medium text-foreground truncate max-w-[140px]">{user.email}</span>
                   </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Hash className="h-3.5 w-3.5" />
+                    <span>Images processed:</span>
+                    <span className="ml-auto font-medium text-foreground">{profile?.images_processed ?? 0}</span>
+                  </div>
                 </div>
 
                 <div className="border-t border-surface-border" />
 
+                {/* Actions */}
                 <div className="space-y-1">
                   <button
                     onClick={() => { setProfileOpen(false); navigate('/history'); }}
