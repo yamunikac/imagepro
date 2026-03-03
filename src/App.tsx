@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
 import CompressPage from "./pages/CompressPage";
@@ -11,30 +13,35 @@ import CropPage from "./pages/CropPage";
 import EnhancePage from "./pages/EnhancePage";
 import RotatePage from "./pages/RotatePage";
 import BackgroundRemovalPage from "./pages/BackgroundRemovalPage";
+import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/studio" element={<Index />} />
-          <Route path="/compress" element={<CompressPage />} />
-          <Route path="/convert" element={<ConvertPage />} />
-          <Route path="/crop" element={<CropPage />} />
-          <Route path="/enhance" element={<EnhancePage />} />
-          <Route path="/rotate" element={<RotatePage />} />
-          <Route path="/remove-bg" element={<BackgroundRemovalPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="/studio" element={<Index />} />
+            <Route path="/compress" element={<CompressPage />} />
+            <Route path="/convert" element={<ConvertPage />} />
+            <Route path="/crop" element={<CropPage />} />
+            <Route path="/enhance" element={<EnhancePage />} />
+            <Route path="/rotate" element={<RotatePage />} />
+            <Route path="/remove-bg" element={<BackgroundRemovalPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

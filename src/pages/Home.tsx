@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download, Sparkles, RotateCw, Eraser } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Eye, Layers, Minimize2, FileSymlink, Crop, ArrowRight, Zap, Shield, Download, Sparkles, RotateCw, Eraser, LogIn, LayoutDashboard } from 'lucide-react';
 
 const features = [
   {
@@ -89,17 +90,37 @@ const stats = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="flex h-14 items-center border-b border-surface-border bg-surface px-6 flex-shrink-0">
+      <header className="flex h-14 items-center justify-between border-b border-surface-border bg-surface px-6 flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
             <Eye className="h-4 w-4 text-primary-foreground" />
           </div>
           <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
           <span className="ml-1 text-xs text-muted-foreground hidden sm:inline">Image Processing Studio</span>
+        </div>
+        <div className="flex items-center gap-2">
+          {user ? (
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-all"
+            >
+              <LayoutDashboard className="h-3.5 w-3.5" />
+              Dashboard
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate('/auth')}
+              className="flex items-center gap-1.5 rounded-lg gradient-brand px-4 py-1.5 text-xs font-semibold text-primary-foreground shadow-glow-sm hover:shadow-glow transition-all"
+            >
+              <LogIn className="h-3.5 w-3.5" />
+              Sign In
+            </button>
+          )}
         </div>
       </header>
 
