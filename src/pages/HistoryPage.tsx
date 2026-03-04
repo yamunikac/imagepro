@@ -1,111 +1,88 @@
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
-import { Clock, ImageIcon, ArrowRight, LogIn } from 'lucide-react';
+import { useImageHistory } from '@/contexts/ImageHistoryContext';
+import { Clock, Download, Trash2, ImageIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-interface HistoryRow {
-  id: string;
-  operations_applied: string[];
-  created_at: string;
-  original_image_url: string | null;
-  processed_image_url: string | null;
-}
-
 export default function HistoryPage() {
-  const { user } = useAuth();
   const navigate = useNavigate();
-  const [history, setHistory] = useState<HistoryRow[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { history, removeFromHistory } = useImageHistory();
 
-  useEffect(() => {
-    if (!user) { setLoading(false); return; }
-    supabase
-      .from('image_history')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(50)
-      .then(({ data }) => {
-        if (data) setHistory(data);
-        setLoading(false);
-      });
-  }, [user]);
+  const handleDownload = (item: typeof history[0]) => {
+    const a = document.createElement('a');
+    a.href = item.processedImageUrl;
+    a.download = `visionpro-${item.featureName.toLowerCase()}-${Date.now()}.png`;
+    a.click();
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
       <main className="flex-1 px-6 py-12">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-8">
             <Clock className="h-6 w-6 text-primary" />
             <h1 className="font-display text-3xl font-bold text-foreground">Processing History</h1>
+            <span className="ml-auto text-sm text-muted-foreground">{history.length} items</span>
           </div>
 
-          {!user ? (
+          {history.length === 0 ? (
             <div className="rounded-2xl border border-surface-border bg-surface p-16 text-center space-y-4">
-              <LogIn className="mx-auto h-12 w-12 text-muted-foreground/30" />
-              <h2 className="font-display text-xl font-semibold text-foreground">Sign in to view history</h2>
-              <p className="text-sm text-muted-foreground">Your processing history is saved when you're logged in.</p>
-              <button
-                onClick={() => navigate('/auth')}
-                className="rounded-xl gradient-brand px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow-sm hover:shadow-glow transition-all"
-              >
-                Sign In
-              </button>
-            </div>
-          ) : loading ? (
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-20 rounded-xl border border-surface-border bg-surface animate-shimmer" />
-              ))}
-            </div>
-          ) : history.length === 0 ? (
-            <div className="rounded-2xl border border-surface-border bg-surface p-16 text-center space-y-3">
               <ImageIcon className="mx-auto h-12 w-12 text-muted-foreground/30" />
               <h2 className="font-display text-xl font-semibold text-foreground">No images processed yet</h2>
-              <p className="text-sm text-muted-foreground">Start by selecting a tool from the Features page.</p>
+              <p className="text-sm text-muted-foreground">Process an image from the Features page and it will appear here.</p>
               <button
                 onClick={() => navigate('/features')}
                 className="rounded-xl gradient-brand px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow-sm hover:shadow-glow transition-all"
               >
-                Explore Features
+                Start Editing
               </button>
             </div>
           ) : (
-            <div className="space-y-3">
-              {history.map((h) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {history.map((item) => (
                 <div
-                  key={h.id}
-                  className="flex items-center gap-4 rounded-xl border border-surface-border bg-surface p-4 hover:border-primary/30 transition-all"
+                  key={item.id}
+                  className="group rounded-2xl border border-surface-border bg-surface overflow-hidden hover:border-primary/30 hover:shadow-studio-md transition-all duration-300"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-surface-border bg-surface-elevated">
-                    <ImageIcon className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap gap-1.5">
-                      {h.operations_applied.map((op, i) => (
-                        <span key={i} className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary">
-                          {op}
-                        </span>
-                      ))}
+                  {/* Image preview */}
+                  <div className="relative aspect-[4/3] bg-surface-elevated overflow-hidden">
+                    <img
+                      src={item.processedImageUrl}
+                      alt={item.featureName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-2 right-2">
+                      <span className="rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-medium text-primary">
+                        {item.featureName}
+                      </span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1.5 font-mono">
-                      {new Date(h.created_at).toLocaleString()}
-                    </p>
                   </div>
-                  {h.processed_image_url && (
-                    <a
-                      href={h.processed_image_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-all"
-                    >
-                      View <ArrowRight className="h-3 w-3" />
-                    </a>
-                  )}
+
+                  {/* Card footer */}
+                  <div className="p-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-mono">
+                        {new Date(item.timestamp).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => handleDownload(item)}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 transition-all"
+                        title="Download"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={() => removeFromHistory(item.id)}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all"
+                        title="Delete"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
