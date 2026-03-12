@@ -13,9 +13,9 @@ export default function Home() {
       <section className="relative flex-1 flex flex-col items-center justify-center px-6 text-center overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <img src={heroBg} alt="" className="h-full w-full object-cover brightness-110 contrast-110 saturate-125" />
+          <div className="absolute inset-0 bg-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
         </div>
 
         {/* Glow */}

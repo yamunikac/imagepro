@@ -4,6 +4,7 @@
  * For best results with a real AI model, connect a remove.bg API key via Cloud secrets.
  */
 import { useState, useRef, useCallback } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCw, Eraser, Info } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
@@ -160,12 +161,15 @@ export default function BackgroundRemovalPage() {
     if (imgRef.current) process(imgRef.current, tol, feather);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-no-bg.png`;
     a.click();
+    saveToHistory(originalImage, processedImage, ['Background Removal']);
   };
 
   const reset = () => {

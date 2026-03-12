@@ -3,6 +3,7 @@
  * Supports 90°/180°/270° presets, custom angle slider, and flip operations.
  */
 import { useState, useRef, useCallback } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCw, RotateCw, FlipHorizontal, FlipVertical } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
@@ -92,12 +93,18 @@ export default function RotatePage() {
     apply(angle, flipH, next);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-rotated-${angle}deg.png`;
     a.click();
+    const ops = [`Rotate ${angle}°`];
+    if (flipH) ops.push('Flip H');
+    if (flipV) ops.push('Flip V');
+    saveToHistory(originalImage, processedImage, ops);
   };
 
   const reset = () => {

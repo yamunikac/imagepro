@@ -4,6 +4,7 @@
  * All processing via Canvas API — no server uploads.
  */
 import { useState, useRef, useCallback } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCw, Sparkles } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
@@ -158,12 +159,15 @@ export default function EnhancePage() {
     if (imgRef.current) process(imgRef.current, next);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-enhanced.jpg`;
     a.click();
+    saveToHistory(originalImage, processedImage, ['Enhance - Sharpen/Denoise/Contrast/Low-light']);
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, FileSymlink, RefreshCw, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -71,6 +72,8 @@ export default function ConvertPage() {
     setFiles(updated);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = (file: typeof files[0]) => {
     if (!file.converted) return;
     const ext = FORMAT_OPTIONS.find((f) => f.value === outputFormat)?.ext ?? 'jpg';
@@ -78,6 +81,7 @@ export default function ConvertPage() {
     a.href = file.converted;
     a.download = file.name.replace(/\.[^.]+$/, '') + '.' + ext;
     a.click();
+    saveToHistory(file.original, file.converted, [`Convert to ${ext.toUpperCase()}`]);
   };
 
   const downloadAll = () => files.forEach(download);

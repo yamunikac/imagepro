@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, Crop, RefreshCw, RotateCcw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -216,12 +217,15 @@ export default function CropPage() {
     setCroppedImage(canvas.toDataURL('image/png'));
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!croppedImage) return;
     const a = document.createElement('a');
     a.href = croppedImage;
     a.download = `${originalName}-cropped.png`;
     a.click();
+    saveToHistory(originalImage, croppedImage, ['Crop']);
   };
 
   const reset = () => {
