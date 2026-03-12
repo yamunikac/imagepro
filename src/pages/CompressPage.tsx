@@ -81,6 +81,8 @@ export default function CompressPage() {
     if (imgRef.current) compress(imgRef.current, q, pct, fmt);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!compressedImage) return;
     const ext = format === 'image/jpeg' ? 'jpg' : format === 'image/webp' ? 'webp' : 'png';
@@ -88,6 +90,7 @@ export default function CompressPage() {
     a.href = compressedImage;
     a.download = `${originalName}-compressed.${ext}`;
     a.click();
+    saveToHistory(originalImage, compressedImage, [`Compress - Quality ${quality}%`]);
   };
 
   const reset = () => {

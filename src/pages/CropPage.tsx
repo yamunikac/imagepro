@@ -217,12 +217,15 @@ export default function CropPage() {
     setCroppedImage(canvas.toDataURL('image/png'));
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!croppedImage) return;
     const a = document.createElement('a');
     a.href = croppedImage;
     a.download = `${originalName}-cropped.png`;
     a.click();
+    saveToHistory(originalImage, croppedImage, ['Crop']);
   };
 
   const reset = () => {

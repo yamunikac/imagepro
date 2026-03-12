@@ -159,12 +159,15 @@ export default function EnhancePage() {
     if (imgRef.current) process(imgRef.current, next);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-enhanced.jpg`;
     a.click();
+    saveToHistory(originalImage, processedImage, ['Enhance - Sharpen/Denoise/Contrast/Low-light']);
   };
 
   return (

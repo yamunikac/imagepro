@@ -161,12 +161,15 @@ export default function BackgroundRemovalPage() {
     if (imgRef.current) process(imgRef.current, tol, feather);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-no-bg.png`;
     a.click();
+    saveToHistory(originalImage, processedImage, ['Background Removal']);
   };
 
   const reset = () => {

@@ -93,12 +93,18 @@ export default function RotatePage() {
     apply(angle, flipH, next);
   };
 
+  const { saveToHistory } = useSaveHistory();
+
   const download = () => {
     if (!processedImage) return;
     const a = document.createElement('a');
     a.href = processedImage;
     a.download = `${originalName}-rotated-${angle}deg.png`;
     a.click();
+    const ops = [`Rotate ${angle}°`];
+    if (flipH) ops.push('Flip H');
+    if (flipV) ops.push('Flip V');
+    saveToHistory(originalImage, processedImage, ops);
   };
 
   const reset = () => {
