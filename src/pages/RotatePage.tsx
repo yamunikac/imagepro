@@ -3,6 +3,7 @@
  * Supports 90°/180°/270° presets, custom angle slider, and flip operations.
  */
 import { useState, useRef, useCallback } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCw, RotateCw, FlipHorizontal, FlipVertical } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
