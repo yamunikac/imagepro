@@ -7,16 +7,10 @@ type Msg = { role: 'user' | 'assistant'; content: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 
-const quickActions = [
-  'How do I remove a background?',
-  'What formats are supported?',
-  'How to compress an image?',
-];
-
 export default function AIChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: 'assistant', content: "👋 Hi! I'm your **VisionPro AI assistant**. I can help you with:\n\n- 🖼️ How to use each editing tool\n- 📁 Supported formats & limits\n- 💡 Tips for best results\n- 🔧 Troubleshooting\n\nWhat would you like to know?" },
+    { role: 'assistant', content: "Hi! I'm your VisionPro AI assistant. I can help you with image processing tips, explain features, and suggest the right tools for your needs. How can I help?" },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,10 +20,9 @@ export default function AIChatWidget() {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const send = async (text?: string) => {
-    const msg = text || input.trim();
-    if (!msg || loading) return;
-    const userMsg: Msg = { role: 'user', content: msg };
+  const send = async () => {
+    if (!input.trim() || loading) return;
+    const userMsg: Msg = { role: 'user', content: input.trim() };
     const newMsgs = [...messages, userMsg];
     setMessages(newMsgs);
     setInput('');
@@ -47,8 +40,9 @@ export default function AIChatWidget() {
       });
 
       if (!resp.ok) {
+        const errText = await resp.text();
         let errMsg = 'Something went wrong. Please try again.';
-        if (resp.status === 429) errMsg = 'Rate limit reached. Please wait a moment.';
+        if (resp.status === 429) errMsg = 'Rate limit exceeded. Please wait a moment.';
         if (resp.status === 402) errMsg = 'AI usage limit reached.';
         setMessages(prev => [...prev, { role: 'assistant', content: errMsg }]);
         setLoading(false);
@@ -81,6 +75,7 @@ export default function AIChatWidget() {
         const { done, value } = await reader.read();
         if (done) break;
         textBuffer += decoder.decode(value, { stream: true });
+
         let idx: number;
         while ((idx = textBuffer.indexOf('\n')) !== -1) {
           let line = textBuffer.slice(0, idx);
@@ -113,8 +108,8 @@ export default function AIChatWidget() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-glow transition-all duration-300',
-          open ? 'gradient-brand rotate-90 scale-90' : 'gradient-brand animate-pulse-glow hover:scale-110'
+          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-glow transition-all',
+          open ? 'gradient-brand rotate-0' : 'gradient-brand animate-pulse-glow'
         )}
       >
         {open ? <X className="h-6 w-6 text-primary-foreground" /> : <MessageCircle className="h-6 w-6 text-primary-foreground" />}
@@ -122,21 +117,17 @@ export default function AIChatWidget() {
 
       {/* Chat panel */}
       {open && (
-        <div
-          className="fixed bottom-24 right-6 z-50 flex w-[380px] max-w-[calc(100vw-3rem)] flex-col rounded-2xl border border-surface-border bg-surface/95 backdrop-blur-xl shadow-studio-lg overflow-hidden animate-fade-in-up"
-          style={{ height: '520px' }}
+        <div className="fixed bottom-24 right-6 z-50 flex w-[380px] max-w-[calc(100vw-3rem)] flex-col rounded-2xl border border-surface-border bg-surface shadow-studio-lg overflow-hidden animate-fade-in-up"
+          style={{ height: '500px' }}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-surface-border px-4 py-3 bg-surface-elevated/80 backdrop-blur-sm">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-brand shadow-glow-sm">
-              <Bot className="h-4.5 w-4.5 text-primary-foreground" />
+          <div className="flex items-center gap-3 border-b border-surface-border px-4 py-3 bg-surface-elevated">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand">
+              <Bot className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <h3 className="font-display text-sm font-bold text-foreground">VisionPro AI</h3>
-              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-success inline-block" />
-                Online · Ready to help
-              </p>
+              <h3 className="font-display text-sm font-semibold text-foreground">AI Assistant</h3>
+              <p className="text-[10px] text-muted-foreground">Powered by AI</p>
             </div>
           </div>
 
@@ -156,7 +147,7 @@ export default function AIChatWidget() {
                     : 'border border-surface-border bg-surface-elevated text-foreground'
                 )}>
                   {msg.role === 'assistant' ? (
-                    <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0 [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground">
+                    <div className="prose prose-sm prose-invert max-w-none [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0">
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
                   ) : (
@@ -175,7 +166,7 @@ export default function AIChatWidget() {
                 <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
                   <Bot className="h-3.5 w-3.5 text-primary" />
                 </div>
-                <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-elevated px-3 py-2">
+                <div className="flex items-center gap-1.5 rounded-xl border border-surface-border bg-surface-elevated px-3 py-2">
                   <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
                   <span className="text-xs text-muted-foreground">Thinking...</span>
                 </div>
@@ -184,24 +175,12 @@ export default function AIChatWidget() {
             <div ref={endRef} />
           </div>
 
-          {/* Quick actions */}
-          {messages.length <= 2 && (
-            <div className="px-4 pb-2 flex flex-wrap gap-1.5">
-              {quickActions.map((q) => (
-                <button
-                  key={q}
-                  onClick={() => send(q)}
-                  className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-medium text-primary hover:bg-primary/10 transition-all"
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
-          )}
-
           {/* Input */}
           <div className="border-t border-surface-border p-3">
-            <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex gap-2">
+            <form
+              onSubmit={(e) => { e.preventDefault(); send(); }}
+              className="flex gap-2"
+            >
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -211,7 +190,7 @@ export default function AIChatWidget() {
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="flex h-9 w-9 items-center justify-center rounded-xl gradient-brand text-primary-foreground disabled:opacity-40 hover:shadow-glow-sm transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-xl gradient-brand text-primary-foreground disabled:opacity-40 transition-all"
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -222,3 +201,4 @@ export default function AIChatWidget() {
     </>
   );
 }
+

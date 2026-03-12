@@ -9,41 +9,71 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      {/* Full-screen hero */}
-      <section className="relative flex-1 flex items-center justify-center overflow-hidden">
+      {/* Hero with background image */}
+      <section className="relative flex-1 flex flex-col items-center justify-center px-6 text-center overflow-hidden">
         {/* Background image */}
-        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover" />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+        </div>
 
-        {/* Glassmorphism card */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 py-16 max-w-2xl mx-auto animate-fade-in-up">
-          <div className="rounded-3xl border border-surface-border/30 bg-surface/10 backdrop-blur-xl p-10 sm:p-14 shadow-studio-lg space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md px-4 py-1.5 text-xs font-medium text-primary">
-              ✨ AI-Powered Processing
-            </div>
+        {/* Glow */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-[500px] w-[500px] rounded-full bg-primary/10 blur-[100px]" />
+        </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
-              AI-Powered Image Editing
-              <br />
-              <span className="text-gradient-brand">Made Simple</span>
-            </h1>
+        <div className="relative space-y-8 max-w-3xl mx-auto py-20">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary backdrop-blur-md">
+            ✨ AI-Powered Image Processing
+          </div>
 
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-md mx-auto">
-              Enhance, compress, convert, and transform your images with professional-grade tools — entirely in your browser.
-            </p>
+          <h1 className="font-display text-6xl sm:text-7xl font-bold leading-[1.1] tracking-tight">
+            <span className="text-foreground">Transform Your</span>
+            <br />
+            <span className="text-gradient-brand">Images Instantly</span>
+          </h1>
 
+          <p className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-xl mx-auto">
+            Professional image editing powered by AI. Enhance, compress, convert, and remove backgrounds — all in your browser.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button
               onClick={() => navigate('/features')}
-              className="group rounded-xl gradient-brand px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-[0_0_30px_hsl(190_100%_50%/0.4)] transition-all duration-300 hover:-translate-y-1 hover:scale-105"
+              className="rounded-xl gradient-brand px-8 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-glow transition-all hover:-translate-y-0.5"
             >
-              Get Started
-              <span className="inline-block ml-2 transition-transform duration-200 group-hover:translate-x-1">→</span>
+              Explore Features
             </button>
+            <button
+              onClick={() => navigate('/auth')}
+              className="rounded-xl border border-surface-border bg-surface/80 backdrop-blur-md px-8 py-3 text-sm font-semibold text-foreground hover:border-primary/30 hover:bg-surface-elevated transition-all hover:-translate-y-0.5"
+            >
+              Get Started Free
+            </button>
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-8 pt-8">
+            {[
+              { value: '7+', label: 'Tools' },
+              { value: '100%', label: 'Private' },
+              { value: 'AI', label: 'Powered' },
+              { value: '0', label: 'Server Uploads' },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <div className="font-display text-2xl font-bold text-primary">{s.value}</div>
+                <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="border-t border-surface-border bg-surface px-6 py-4 text-center text-xs text-muted-foreground/60">
+        VisionPro Studio · All processing done client-side via Canvas API
+      </footer>
     </div>
   );
 }
