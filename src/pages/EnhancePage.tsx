@@ -4,6 +4,7 @@
  * All processing via Canvas API — no server uploads.
  */
 import { useState, useRef, useCallback } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCw, Sparkles } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
