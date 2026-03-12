@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useSaveHistory } from '@/hooks/useSaveHistory';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, Crop, RefreshCw, RotateCcw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
