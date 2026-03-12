@@ -22,37 +22,37 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-surface-border bg-surface/80 backdrop-blur-xl px-6 flex-shrink-0">
-      <div className="flex items-center gap-6">
-        {/* Brand */}
+    <header className="sticky top-0 z-50 flex h-14 items-center border-b border-surface-border bg-surface/80 backdrop-blur-xl px-6 flex-shrink-0">
+      {/* Brand — left */}
+      <div className="flex items-center gap-2.5 flex-shrink-0">
         <button onClick={() => navigate('/')} className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand shadow-glow-sm">
             <Eye className="h-4 w-4 text-primary-foreground" />
           </div>
           <span className="font-display text-base font-bold text-gradient-brand">VisionPro</span>
         </button>
-
-        {/* Nav */}
-        <nav className="hidden sm:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <button
-              key={link.path}
-              onClick={() => navigate(link.path)}
-              className={cn(
-                'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
-                location.pathname === link.path
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-surface-elevated'
-              )}
-            >
-              {link.label}
-            </button>
-          ))}
-        </nav>
       </div>
 
-      <div className="flex items-center gap-2">
-        {/* Theme toggle */}
+      {/* Nav — center */}
+      <nav className="flex-1 flex items-center justify-center gap-1">
+        {navLinks.map((link) => (
+          <button
+            key={link.path}
+            onClick={() => navigate(link.path)}
+            className={cn(
+              'px-4 py-1.5 rounded-lg text-sm font-medium transition-colors',
+              location.pathname === link.path
+                ? 'text-primary bg-primary/10'
+                : 'text-muted-foreground hover:text-foreground hover:bg-surface-elevated'
+            )}
+          >
+            {link.label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Right actions */}
+      <div className="flex items-center gap-2 flex-shrink-0">
         <button
           onClick={toggleTheme}
           className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border bg-surface-elevated text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
