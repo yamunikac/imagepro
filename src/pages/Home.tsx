@@ -24,9 +24,9 @@ export default function Home() {
         </div>
 
         <div className="relative space-y-8 max-w-3xl mx-auto py-20">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 dark:bg-primary/5 dark:border-primary/20 px-4 py-1.5 text-xs font-medium text-primary backdrop-blur-md">
-            ✨ AI-Powered Image Processing
-          </div>
+          
+
+          
 
           <h1 className="font-display text-6xl sm:text-7xl font-bold leading-[1.1] tracking-tight">
             <span className="text-foreground drop-shadow-sm">Transform Your</span>
@@ -41,14 +41,14 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button
               onClick={() => navigate('/features')}
-              className="rounded-xl gradient-brand px-8 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-glow transition-all hover:-translate-y-0.5"
-            >
+              className="rounded-xl gradient-brand px-8 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-glow transition-all hover:-translate-y-0.5">
+              
               Explore Features
             </button>
             <button
               onClick={() => navigate('/auth')}
-              className="rounded-xl border border-surface-border bg-surface/90 backdrop-blur-md px-8 py-3 text-sm font-semibold text-foreground hover:border-primary/30 hover:bg-surface-elevated transition-all hover:-translate-y-0.5"
-            >
+              className="rounded-xl border border-surface-border bg-surface/90 backdrop-blur-md px-8 py-3 text-sm font-semibold text-foreground hover:border-primary/30 hover:bg-surface-elevated transition-all hover:-translate-y-0.5">
+              
               Get Started Free
             </button>
           </div>
@@ -59,6 +59,6 @@ export default function Home() {
       <footer className="border-t border-surface-border bg-surface px-6 py-4 text-center text-xs text-muted-foreground/60">
         VisionPro Studio · All processing done client-side via Canvas API
       </footer>
-    </div>
-  );
+    </div>);
+
 }
