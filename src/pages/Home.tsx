@@ -34,8 +34,8 @@ export default function Home() {
             <span className="text-gradient-brand">Images Instantly</span>
           </h1>
 
-          <p className="text-foreground/70 dark:text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-xl mx-auto drop-shadow-sm">
-            Professional image editing powered by AI. Enhance, compress, convert, and remove backgrounds — all in your browser.
+          <p className="text-foreground/70 dark:text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-xl mx-auto drop-shadow-sm">Image editing Web application where you can- Enhance, compress, convert, and remove backgrounds all in your browser or mobile phone.
+
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4">
