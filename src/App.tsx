@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AIChatWidget from "@/components/AIChatWidget";
+import CloudButton from "@/components/CloudButton";
 import Home from "./pages/Home";
 import FeaturesPage from "./pages/FeaturesPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -17,6 +18,8 @@ import CropPage from "./pages/CropPage";
 import EnhancePage from "./pages/EnhancePage";
 import RotatePage from "./pages/RotatePage";
 import BackgroundRemovalPage from "./pages/BackgroundRemovalPage";
+import AdjustPage from "./pages/AdjustPage";
+import CreativeEditPage from "./pages/CreativeEditPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import NotFound from "./pages/NotFound";
@@ -44,9 +47,12 @@ const App = () => (
               <Route path="/enhance" element={<EnhancePage />} />
               <Route path="/rotate" element={<RotatePage />} />
               <Route path="/remove-bg" element={<BackgroundRemovalPage />} />
+              <Route path="/adjust" element={<AdjustPage />} />
+              <Route path="/creative-edit" element={<CreativeEditPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <AIChatWidget />
+            <CloudButton />
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>
