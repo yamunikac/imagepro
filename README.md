@@ -1,73 +1,64 @@
-# Welcome to your Lovable project
+# 🖼️ ImagePro – Image Processing Web Application
 
-## Project info
+An interactive web-based image processing application developed as part of an academic team project.  
+ImagePro allows users to upload images and apply various image processing operations through a clean and user-friendly interface.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🔗 Live Demo: https://imagepro-ivory.vercel.app/  
+🔗 GitHub Repository: https://github.com/yamunikac/imagepro
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+- 📤 Upload Images
+- 🎨 Apply Image Filters
+- 🌗 Grayscale Conversion
+- ✨ Image Enhancement
+- 🔍 Edge Detection
+- 📐 Image Transformations
+- ⚡ Real-time Processing
+- 💻 Responsive User Interface
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/497c8aa4) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+### Frontend
+- HTML
+- CSS
+- JavaScript
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Backend
+- Python
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Libraries & Tools
+- OpenCV
+- NumPy
 
-Follow these steps:
+### Deployment
+- Vercel
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Clone the Repository
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+git clone https://github.com/yamunikac/imagepro.git
+cd imagepro
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### 📚 Learning Outcomes
 
-**Edit a file directly in GitHub**
+Through this project, we gained practical experience in:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 🖼️ Image Processing Techniques  
+- 👁️ Computer Vision Fundamentals  
+- 🌐 Web Application Development  
+- 🔗 Frontend & Backend Integration  
+- 🤝 Team Collaboration and Project Management  
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 👥 Team Project
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project was developed as part of an academic team project.  
+Special thanks to all team members for their valuable contributions, teamwork, and collaboration throughout the development process.
