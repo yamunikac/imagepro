@@ -52,5 +52,14 @@ Through this project, we gained practical experience in:
 
 ## 👥 Team Project
 
-This project was developed as part of an academic team project.  
-Special thanks to all team members for their valuable contributions, teamwork, and collaboration throughout the development process.
+This project was developed as part of an academic team project.
+
+### Team Members
+- @yamunikac
+- @bayyavaishnavi
+- @harikabeemaneni-svg
+- @sathwikabanala8-png
+- @Thanmai-29
+- @UshaAlladi05
+
+Special thanks to all team members for their valuable contributions, collaboration, and teamwork throughout the project development.
