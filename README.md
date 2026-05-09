@@ -38,13 +38,6 @@ ImagePro allows users to upload images and apply various image processing operat
 ### Deployment
 - Vercel
 
----
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/yamunikac/imagepro.git
-cd imagepro
 
 ### 📚 Learning Outcomes
 
@@ -56,7 +49,6 @@ Through this project, we gained practical experience in:
 - 🔗 Frontend & Backend Integration  
 - 🤝 Team Collaboration and Project Management  
 
----
 
 ## 👥 Team Project
 
